@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>830 Studio — Marketing, Advertising &amp; Creative Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14171F;
+    --stone:#ECEAE2;
+    --paper:#FBFAF7;
+    --gold:#E8A33D;
+    --teal:#2F6F63;
+    --muted:#6B6F76;
+    --line: rgba(20,23,31,0.12);
+    --line-on-ink: rgba(251,250,247,0.14);
+    --radius: 2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.02em;
+  }
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.02em;
+  }
+  a{color:inherit;}
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  /* Skip link */
+  .skip-link{
+    position:absolute; left:-9999px; top:0; background:var(--ink); color:var(--paper);
+    padding:12px 20px; z-index:200;
+  }
+  .skip-link:focus{ left:20px; top:20px; }
+
+  :focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(251,250,247,0.88);
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .logo{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:19px;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    text-decoration:none;
+  }
+  .logo .num{ color:var(--gold); }
+  .nav-links{
+    display:flex; gap:36px; list-style:none;
+  }
+  .nav-links a{
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+    color:var(--ink);
+    position:relative;
+    padding:6px 0;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute; left:0; right:0; bottom:0;
+    height:1px; background:var(--gold);
+    transform:scaleX(0); transform-origin:left;
+    transition:transform .25s ease;
+  }
+  .nav-links a:hover::after{ transform:scaleX(1); }
+  .nav-cta{
+    font-size:13px;
+    font-family:'IBM Plex Mono', monospace;
+    border:1px solid var(--ink);
+    padding:9px 18px;
+    text-decoration:none;
+    transition: background .2s ease, color .2s ease;
+  }
+  .nav-cta:hover{ background:var(--ink); color:var(--paper); }
+  .nav-toggle{ display:none; }
+  @media (max-width: 780px){
+    .nav-links{ display:none; }
+    .nav-toggle{
+      display:block; background:none; border:1px solid var(--ink);
+      padding:8px 12px; font-family:'IBM Plex Mono', monospace; font-size:12px;
+    }
+  }
+
+  /* HERO */
+  .hero{
+    padding: 88px 0 96px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap:64px;
+    align-items:center;
+  }
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns:1fr; gap:56px; }
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--teal);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--gold);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .eyebrow .dot{ animation:none; } }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+  .hero h1{
+    font-size:clamp(38px, 5.4vw, 62px);
+    line-height:1.04;
+    margin-bottom:26px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--teal);
+  }
+  .hero p.sub{
+    font-size:18px;
+    color:var(--muted);
+    max-width:46ch;
+    margin-bottom:36px;
+  }
+  .hero-ctas{
+    display:flex; gap:16px; flex-wrap:wrap;
+  }
+  .btn-primary{
+    background:var(--ink); color:var(--paper);
+    text-decoration:none;
+    padding:15px 28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13.5px;
+    letter-spacing:0.02em;
+    display:inline-flex; align-items:center; gap:10px;
+    transition: transform .2s ease, background .2s ease;
+  }
+  .btn-primary:hover{ background:var(--teal); transform:translateY(-1px); }
+  .btn-secondary{
+    color:var(--ink); text-decoration:none;
+    padding:15px 6px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13.5px;
+    border-bottom:1px solid var(--ink);
+  }
+
+  /* Clock signature element */
+  .clock-panel{
+    background:var(--ink);
+    color:var(--paper);
+    padding:40px 36px;
+    position:relative;
+    border-radius:var(--radius);
+  }
+  .clock-face{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:clamp(48px, 7vw, 72px);
+    font-weight:500;
+    letter-spacing:0.01em;
+    display:flex;
+    align-items:baseline;
+    gap:4px;
+    color:var(--paper);
+  }
+  .clock-face .colon{
+    color:var(--gold);
+    animation: blink 1.4s steps(1) infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .clock-face .colon{ animation:none; } }
+  @keyframes blink{ 50%{ opacity:0.15; } }
+  .clock-label{
+    margin-top:14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:rgba(251,250,247,0.55);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  .clock-divider{
+    height:1px; background:var(--line-on-ink);
+    margin:28px 0;
+  }
+  .clock-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .clock-stat b{
+    display:block;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:24px;
+    font-weight:600;
+    color:var(--gold);
+  }
+  .clock-stat span{
+    font-size:12px;
+    color:rgba(251,250,247,0.6);
+  }
+
+  /* Section shell */
+  section{ padding:96px 0; }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:32px;
+    margin-bottom:56px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:28px;
+  }
+  @media (max-width:640px){ .section-head{ flex-direction:column; align-items:flex-start; gap:16px; } }
+  .section-head h2{
+    font-size:clamp(28px, 3.6vw, 38px);
+  }
+  .section-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    max-width:32ch;
+    text-align:right;
+  }
+  @media (max-width:640px){ .section-tag{ text-align:left; } }
+
+  /* About */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap:64px;
+  }
+  @media (max-width:900px){ .about-grid{ grid-template-columns:1fr; gap:36px; } }
+  .about-lead{
+    font-size:22px;
+    line-height:1.45;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:500;
+  }
+  .about-body p{
+    color:var(--muted);
+    margin-bottom:18px;
+    max-width:60ch;
+  }
+  .about-body p:last-child{ margin-bottom:0; }
+
+  /* Services */
+  .services{ background:var(--stone); }
+  .service-list{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media (max-width:900px){ .service-list{ grid-template-columns:1fr; } }
+  .service-card{
+    background:var(--paper);
+    padding:40px 32px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    transition: background .2s ease;
+  }
+  .service-card:hover{ background:var(--ink); color:var(--paper); }
+  .service-card:hover .service-num{ color:var(--gold); }
+  .service-card:hover p{ color:rgba(251,250,247,0.7); }
+  .service-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--teal);
+  }
+  .service-card h3{
+    font-size:21px;
+  }
+  .service-card p{
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  /* Process (real sequence -> timestamped) */
+  .process-list{
+    display:flex;
+    flex-direction:column;
+  }
+  .process-row{
+    display:grid;
+    grid-template-columns:110px 1fr 1.3fr;
+    gap:24px;
+    padding:28px 0;
+    border-top:1px solid var(--line);
+    align-items:baseline;
+  }
+  .process-list .process-row:last-child{ border-bottom:1px solid var(--line); }
+  @media (max-width:720px){
+    .process-row{ grid-template-columns:1fr; gap:8px; }
+  }
+  .process-time{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    color:var(--gold);
+    font-weight:500;
+  }
+  .process-row h3{
+    font-size:19px;
+  }
+  .process-row p{
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  /* CTA band */
+  .cta-band{
+    background:var(--ink);
+    color:var(--paper);
+    text-align:center;
+  }
+  .cta-band h2{
+    font-size:clamp(30px, 4.6vw, 46px);
+    max-width:18ch;
+    margin:0 auto 28px;
+  }
+  .cta-band .hero-ctas{ justify-content:center; }
+  .cta-band .btn-secondary{ color:var(--paper); border-bottom-color:var(--paper); }
+
+  /* Contact */
+  .contact-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:64px;
+  }
+  @media (max-width:900px){ .contact-grid{ grid-template-columns:1fr; gap:40px; } }
+  .contact-item{ margin-bottom:28px; }
+  .contact-item:last-child{ margin-bottom:0; }
+  .contact-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .contact-value{
+    font-size:19px;
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  a.contact-value:hover{ border-bottom-color:var(--ink); }
+
+  form{ display:flex; flex-direction:column; gap:18px; }
+  .field label{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .field input, .field textarea{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--line);
+    padding:10px 2px;
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    color:var(--ink);
+  }
+  .field input:focus, .field textarea:focus{
+    border-bottom-color:var(--ink);
+  }
+  .field textarea{ resize:vertical; min-height:80px; }
+  .form-submit{
+    align-self:flex-start;
+    margin-top:8px;
+    background:var(--ink); color:var(--paper);
+    border:none;
+    padding:15px 28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13.5px;
+    cursor:pointer;
+    transition: background .2s ease;
+  }
+  .form-submit:hover{ background:var(--teal); }
+  .form-note{ font-size:13px; color:var(--muted); margin-top:4px; }
+
+  /* Footer */
+  footer{
+    border-top:1px solid var(--line);
+    padding:36px 0;
+  }
+  .footer-row{
+    display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  .footer-row p{
+    font-size:13px; color:var(--muted);
+    font-family:'IBM Plex Mono', monospace;
+  }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="logo"><span class="num">830</span> Studio</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Start a project</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow"><span class="dot"></span> Marketing &amp; creative strategy studio</p>
+        <h1>Built to launch <em>on time</em>, targeted right, and made to work.</h1>
+        <p class="sub">830 Studio helps businesses of every size get found, get seen, and grow — through sharp ad targeting, websites that convert, and creative strategy that holds it all together.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-primary">Start a project →</a>
+          <a href="#services" class="btn-secondary">See what we do</a>
+        </div>
+      </div>
+      <div class="clock-panel">
+        <div class="clock-face">08<span class="colon">:</span>30</div>
+        <p class="clock-label">Studio hours start now</p>
+        <div class="clock-divider"></div>
+        <div class="clock-stats">
+          <div class="clock-stat"><b>3</b><span>Core disciplines</span></div>
+          <div class="clock-stat"><b>1</b><span>Point of contact</span></div>
+          <div class="clock-stat"><b>0</b><span>Wasted ad spend*</span></div>
+          <div class="clock-stat"><b>&infin;</b><span>Follow-through</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about-grid">
+      <div>
+        <p class="about-lead">We're a small studio that treats marketing like a craft — not a checklist.</p>
+      </div>
+      <div class="about-body">
+        <p>830 Studio works with businesses big and small who need more than a vendor — they need a strategist who understands their goals, their budget, and their audience well enough to make real decisions on their behalf.</p>
+        <p>That means we don't hand off a template and disappear. We build the website, set up and manage the ad targeting, and shape the creative strategy behind it, so every piece is pulling in the same direction instead of working against each other.</p>
+        <p>Whether you're a local business getting your first site live or an established brand looking to sharpen your targeting, we start by understanding what actually moves the needle for you — then build toward that, precisely.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What we do</h2>
+        <p class="section-tag">Three disciplines, one strategy</p>
+      </div>
+      <div class="service-list">
+        <div class="service-card">
+          <span class="service-num mono">01</span>
+          <h3>Ad Targeting</h3>
+          <p>Paid campaigns built around who actually buys from you — not broad reach for its own sake. Platform strategy, audience targeting, and budget management that's accountable to results.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num mono">02</span>
+          <h3>Website Design &amp; Build</h3>
+          <p>Fast, clean, conversion-minded websites — designed to represent your business well and make it easy for the right customer to take the next step.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num mono">03</span>
+          <h3>Creative Strategy</h3>
+          <p>The thinking that ties it together — positioning, messaging, and brand direction so your ads, site, and content all sound like the same business.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>How a project runs</h2>
+        <p class="section-tag">From first call to launch</p>
+      </div>
+      <div class="process-list">
+        <div class="process-row">
+          <span class="process-time mono">Step 1</span>
+          <h3>Discover</h3>
+          <p>A working session on your business, audience, and goals — so every decision after this has a reason behind it.</p>
+        </div>
+        <div class="process-row">
+          <span class="process-time mono">Step 2</span>
+          <h3>Strategize</h3>
+          <p>We map the plan: what the site needs to do, who the ads should reach, and what the creative direction says about you.</p>
+        </div>
+        <div class="process-row">
+          <span class="process-time mono">Step 3</span>
+          <h3>Build</h3>
+          <p>Design and development, campaign setup, and creative production — with regular check-ins, not a black box.</p>
+        </div>
+        <div class="process-row">
+          <span class="process-time mono">Step 4</span>
+          <h3>Launch &amp; refine</h3>
+          <p>We go live, watch what the data says, and adjust — targeting, copy, and site alike — until it's working the way it should.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <h2>Have a business that's ready to grow?</h2>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary" style="background:var(--gold); color:var(--ink);">Start a project →</a>
+        <a href="#contact" class="btn-secondary">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <div class="section-head" style="border-bottom:none; margin-bottom:36px; padding-bottom:0;">
+          <h2>Let's talk</h2>
+        </div>
+        <div class="contact-item">
+          <p class="contact-label">Email</p>
+          <a class="contact-value" href="mailto:kionkolbusz01@gmail.com">kionkolbusz01@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <p class="contact-label">Phone</p>
+          <p class="contact-value" style="border:none; color:var(--muted);">Shared after your inquiry — reach out below to set up a call</p>
+        </div>
+      </div>
+      <div>
+        <form onsubmit="event.preventDefault(); document.getElementById('form-success').style.display='block'; this.style.display='none';">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+          </div>
+          <div class="field">
+            <label for="message">What are you looking to grow?</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send message</button>
+          <p class="form-note">This form is a template — connect it to your email service (e.g. Formspree) once your site is live.</p>
+        </form>
+        <div id="form-success" style="display:none;">
+          <p style="font-family:'Space Grotesk', sans-serif; font-size:20px;">Thanks — we'll be in touch within one business day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <p>&copy; <span id="year"></span> 830 Studio. All rights reserved.</p>
+    <p>830studios.org</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
